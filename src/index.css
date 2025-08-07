@@ -1,1 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 @import "tailwindcss";
+
+
+body {
+  font-family: 'Share Tech Mono', monospace;
+}
+
+@theme {
+  --primary-color: #48cb71;
+  --primary-dark: #2b6139;
+  --accent-color: #22d3ee;
+  --text-color: #e2e8f0;
+  --bg-color: #000000;
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glow-shadow: 0 4px 30px rgba(34, 211, 238, 0.4);
+}
+
+.c-space {
+  @apply sm:px-10 px-5 lg:px-16;
+}
+
+/* .hover-effect {
+    @apply hover:text-lime-500 active:text-lime-500 focus:text-lime-500;
+} */
+.shine-hover {
+    @apply overflow-hidden
+      before:absolute before:inset-0 before:rounded-none before:pointer-events-none
+      before:bg-[linear-gradient(120deg,transparent_25%,white_50%,transparent_75%)]
+      before:bg-[length:200%_100%] before:bg-no-repeat before:bg-[position:200%_0]
+      before:transition-[background-position] before:duration-0
+      hover:before:bg-[position:-100%_0] hover:before:duration-[1500ms] cursor-pointer;
+  }
+
+  #particles-js {
+  position: fixed;         
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -10;
+  pointer-events: none;    
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+@keyframes orbit {
+  0% {
+    transform: rotate(var(--angle)) translateY(var(--radius)) rotate(calc(-1 * var(--angle)));
+  }
+  100% {
+    transform: rotate(calc(var(--angle) + 360deg)) translateY(var(--radius)) rotate(calc(-1 * var(--angle) - 360deg)) ;
+  }
+}
+
+.animate-orbit {
+  animation: orbit var(--duration)s linear infinite;
+}
+
+.grid-5 {
+  @apply relative overflow-hidden duration-200 hover:-translate-y-1;
+}
+
+
