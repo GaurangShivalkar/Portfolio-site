@@ -2,17 +2,16 @@ import React, { useState } from "react";
 import skillsData from "../components/SkillData";
 import { SkillCard } from "../components/SkillCard";
 
-const Skills = () => {
-  const [isOrbitMode, setIsOrbitMode] = useState(true);
+const Skills = ({interactiveMode}) => {
+  //const [isOrbitMode, setIsOrbitMode] = useState(true);
 
   return (
-   <div className="min-h-screen text-white p-4 sm:p-6 lg:p-8">
+   <div id="skills" className="text-white p-4 sm:p-6 lg:p-8 pt-15 scroll-mt-15">
       <div className="max-w-7xl mx-auto ">
-      <h1 className="mb-10 text-center text-4xl font-bold tracking-tight text-white sm:text-5xl">
-        Skills
-      </h1>
+      <h1 className="text-4xl sm:text-5xl font-bold text-white text-center">Skills</h1>
+       <div className="h-1 w-24 bg-emerald-500 mx-auto my-8 rounded-full" />
 
-      {/* Toggle */}
+      {/* Toggle
       <div className="mb-6 flex justify-center items-center gap-2 text-white">
         <label className="relative inline-flex cursor-pointer items-center">
           <input
@@ -26,7 +25,7 @@ const Skills = () => {
         <span className="text-sm">
           {isOrbitMode ? "Orbit Mode" : "Scatter Mode"}
         </span>
-      </div>
+      </div> */}
 
       {/* Skill cards */}
       <div className="grid w-full max-w-7xl grid-cols-1 gap-8 md:grid-cols-2">
@@ -35,7 +34,7 @@ const Skills = () => {
             key={data.category}
             category={data.category}
             skills={data.skills}
-            orbitMode={isOrbitMode} // 🔥 Pass the toggle value here
+            orbitMode={interactiveMode} // 🔥 Pass the toggle value here
           />
         ))}
       </div>

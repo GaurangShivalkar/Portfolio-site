@@ -65,3 +65,22 @@ body {
 }
 
 
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.swiper-pagination-bullet {
+  border: 2px solid white; /* default transparent */
+ /* keep visible */
+}
+
+/* Active bullet filled with emerald-500 */
+.swiper-pagination-bullet-active {
+  background-color: #10B981; /* Tailwind emerald-500 hex */
+  border-color: #10B981;
+}

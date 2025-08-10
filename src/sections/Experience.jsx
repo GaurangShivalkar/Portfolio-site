@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import Atropos from "atropos/react";
 import "atropos/css";
 
-import {
-  FaBuilding,
-  FaMapPin,
-  FaCalendarAlt,
-  FaBriefcase,
-} from "react-icons/fa";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { EffectFlip, Pagination, Navigation } from "swiper/modules";
 
-const experience = [
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/effect-flip";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+import ExperienceCard from "../components/ExperienceCard";
+const experiences = [
   {
     company: "MResult",
     role: "Trainee Software Developer Intern",
@@ -38,102 +41,84 @@ const experience = [
   },
 ];
 
-export default function ExperienceCards() {
+const AtroposCard = ({ experience }) => {
   return (
-    <div className=" min-h-screen w-full flex flex-col items-center justify-center p-15">
+    <div className=" backdrop-blur-xl grid grid-cols-1 md:grid-cols-2 gap-10">
+      {experiences.map((job, index) => (
+        <Atropos
+          key={job.company ?? index} // prefer a stable key if available
+          className="atropos-card"
+          activeOffset={60}
+          rotateXMax={20}
+          rotateYMax={20}
+          shadow={true}
+          highlight={true}
+          shadowScale={1.08}
+        >
+          {/* pass the single job object, not the whole array */}
+          <ExperienceCard experience={job} />
+        </Atropos>
+      ))}
+    </div>
+  );
+};
+const FlipCard = ({ experience }) => {
+  return (
+    <Swiper
+      effect={"flip"}
+      grabCursor={true}
+      pagination={true}
+      loop={true}
+      modules={[EffectFlip, Pagination, Navigation]}
+      className="backdrop-blur-xl"
+    >
+      {experiences.map((job, index) => (
+        <SwiperSlide
+          key={index}
+          
+          // className="w-[320px] h-[420px] flex items-stretch"
+        >
+          <div className="h-full flex items-stretch">
+            <div className="w-full">
+              <ExperienceCard experience={job} />
+            </div>
+          </div>
+        </SwiperSlide>
+      ))}
+    </Swiper>
+  );
+};
+
+export default function Experience({interactiveMode}) {
+  // const [isFlip, setFlip] = useState(true);
+  return (
+    <div
+      id="experience"
+      className="w-full flex flex-col items-center justify-center p-15 pt-15 scroll-mt-15"
+    >
       <div className="w-full max-w-7xl">
         <h1 className="text-4xl font-bold text-white text-center mb-4">
           Work Experience
         </h1>
         <div className="h-1 w-24 bg-emerald-500 mx-auto mb-12 rounded-full"></div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          {experience.map((job, index) => (
-            <Atropos
-              key={index}
-              className="atropos-card"
-              activeOffset={60}
-              rotateXMax={20}
-              rotateYMax={20}
-              shadow={true}
-              highlight={true}
-              shadowScale={1.08}
-            >
-              <div className="relative  backdrop-blur-xl border border-gray-700 hover:border-emerald-500/40 rounded-2xl p-6 h-full flex flex-col transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-500/20">
-                {/* Glow blob */}
-                <div
-                  className="absolute -top-10 -right-10 w-40 h-40 bg-emerald-500 opacity-20 blur-3xl pointer-events-none"
-                  data-atropos-offset="-10"
-                />
-
-                {/* Header */}
-                <div className="flex items-start gap-4 mb-4">
-                  <div
-                    className="bg-gray-700/50 p-3 rounded-lg border border-gray-600"
-                    data-atropos-offset="-4"
-                  >
-                    <FaBriefcase className="w-6 h-6 text-emerald-400" />
-                  </div>
-                  <div>
-                    <h2
-                      className="text-xl font-bold text-white"
-                      data-atropos-offset="6"
-                    >
-                      {job.role}
-                    </h2>
-                    <p
-                      className="text-gray-300 text-sm flex items-center gap-2 mt-1"
-                      data-atropos-offset="4"
-                    >
-                      <FaBuilding className="w-4 h-4" />
-                      {job.company}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Duration and Location */}
-                <div
-                  className="flex flex-wrap text-sm text-gray-400 gap-x-6 gap-y-2 mb-4"
-                  data-atropos-offset="3"
-                >
-                  <div className="flex items-center gap-2">
-                    <FaCalendarAlt className="w-4 h-4 text-emerald-500" />
-                    <span>{job.duration}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <FaMapPin className="w-4 h-4 text-emerald-500" />
-                    <span>{job.location}</span>
-                  </div>
-                </div>
-
-                {/* Divider */}
-                <div
-                  className="w-full h-px bg-gray-700 mb-4"
-                  data-atropos-offset="2"
-                />
-
-                {/* Highlights */}
-                <ul className="space-y-3 text-gray-300 text-sm list-none flex-grow">
-                  {job.highlights.map((highlight, i) => (
-                    <li
-                      key={i}
-                      className="flex items-start gap-3 group"
-                      data-atropos-offset={8 + i * 2}
-                    >
-                      <div className="relative flex-shrink-0 mt-1">
-                        <div className="w-3 h-3 rounded-full bg-emerald-500 group-hover:scale-125 transition-transform duration-200" />
-                        <div className="absolute -inset-1 rounded-full bg-emerald-500 opacity-10 blur-sm pointer-events-none" />
-                      </div>
-                      <span className="text-slate-200 text-sm font-medium leading-relaxed group-hover:text-white transition-colors duration-200">
-                        {highlight}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </Atropos>
-          ))}
-        </div>
+        {/* <div className="mb-6 flex justify-center items-center gap-2 text-white">
+          <label className="relative inline-flex cursor-pointer items-center">
+            <input
+              type="checkbox"
+              className="peer sr-only"
+              checked={isFlip}
+              onChange={() => setFlip(!isFlip)}
+            />
+            <div className="peer h-5 w-10 rounded-full bg-gray-600 after:absolute after:left-[2px] after:top-[2px] after:h-4 after:w-4 after:rounded-full after:bg-white after:transition-all peer-checked:bg-sky-500 peer-checked:after:translate-x-5"></div>
+          </label>
+          <span className="text-sm">{isFlip ? "Flip" : "Atropos"}</span>
+        </div> */}
+        {interactiveMode ? (
+          <AtroposCard experience={experiences} />
+        ) : (
+          <FlipCard experience={experiences} />
+        )}
       </div>
     </div>
   );

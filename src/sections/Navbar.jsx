@@ -1,15 +1,40 @@
 import React, { useState } from "react";
 import { HiMenu, HiX } from "react-icons/hi";
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
 
+const ToggleSwitch = ({ checked, onChange, onLabel, offLabel }) => {
+  return (
+    <div className="flex items-center gap-2 text-white">
+      <label className="relative inline-flex cursor-pointer items-center">
+        <input
+          type="checkbox"
+          className="peer sr-only"
+          checked={checked}
+          onChange={onChange}
+        />
+        <div className="peer h-5 w-10 rounded-full bg-gray-600
+          after:absolute after:left-[2px] after:top-[2px] after:h-4 after:w-4
+          after:rounded-full after:bg-white after:transition-all
+          peer-checked:bg-sky-500 peer-checked:after:translate-x-5"
+        ></div>
+      </label>
+      <span className="text-sm">{checked ? onLabel : offLabel}</span>
+    </div>
+  );
+}
+const Navbar = ({ interactiveMode, setInteractiveMode, backgroundMode, toggleBackground }) => {
+  const [isOpen, setIsOpen] = useState(false);
+const buttonLabel = {
+    particles: "Switch to Clouds",
+    clouds: "Switch to Birds",
+    birds: "Switch to Particles",
+  };
   const links = [
     { name: "Hero", id: "hero" },
-    { name: "About Me", id: "about" },
     { name: "Education", id: "education" },
+    { name: "Skills", id: "skills" },
     { name: "Experience", id: "experience" },
-    { name: "Projects", id: "projects" },
+    { name: "Projects", id: "project" },
     { name: "Contact", id: "contact" },
   ];
 
@@ -25,8 +50,21 @@ const Navbar = () => {
           >
             Gaurang Shivalkar
           </a>
-
-          {/* Desktop Nav */}
+<div className="hidden sm:flex items-center gap-6">
+  {/* Desktop: toggle + button visible here */}
+  <ToggleSwitch
+    checked={interactiveMode}
+    onChange={() => setInteractiveMode(!interactiveMode)}
+    onLabel="Interactive"
+    offLabel="Normal"
+  />
+  <button
+    onClick={toggleBackground}
+    className="text-white border border-white/20 hover:text-emerald-500 hover:border-emerald-500"
+  >
+    {buttonLabel[backgroundMode]}
+  </button>
+</div>  {/* Desktop Nav */}
           <ul className="hidden sm:flex space-x-6">
             {links.map((link) => (
               <li key={link.id}>
@@ -38,7 +76,9 @@ const Navbar = () => {
                 </a>
               </li>
             ))}
+           
           </ul>
+          
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="flex cursor-pointer text-white focus:outline-none active:text-emerald-600 sm:hidden"
@@ -64,8 +104,24 @@ const Navbar = () => {
                 {link.name}
               </a>
             </li>
+            
           ))}
+            <li className="flex flex-col items-center gap-3 mt-4">
+      <ToggleSwitch
+        checked={interactiveMode}
+        onChange={() => setInteractiveMode(!interactiveMode)}
+        onLabel="Interactive"
+        offLabel="Normal"
+      />
+      <button
+        onClick={toggleBackground}
+        className="text-white border border-white/20 hover:text-emerald-500 hover:border-emerald-500"
+      >
+        {buttonLabel[backgroundMode]}
+      </button>
+    </li>
         </ul>
+        
       )}
     </div>
   );

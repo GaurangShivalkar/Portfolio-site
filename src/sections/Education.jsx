@@ -1,179 +1,175 @@
+import React, { useState, useRef, useEffect } from "react";
 import { FaGraduationCap, FaCertificate } from "react-icons/fa";
+import { EducationCard, CertificationCard } from "../components/CardComponent";
 import {
-  EducationCardContent,
-  CertificationCardContent,
-} from "../components/CardComponent";
-
+  TimelineEducation,
+  TimelineCertification,
+} from "../components/TimelineCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Parallax, Pagination, Autoplay } from "swiper/modules";
-
 import "swiper/css";
 import "swiper/css/parallax";
 import "swiper/css/pagination";
+import {
+  educationItems,
+  certificationItems,
+} from "../components/EducationData";
+import { motion, useScroll } from "framer-motion";
 
-const educationItems = [
-  {
-    title: "Master in Computer Application (MCA)",
-    institute: "MET Institute of Computer Science",
-    duration: "November 2022 – July 2024",
-    cgpa: "8.86",
-    details: [
-      "Published a research paper",
-      "Secured internship with placement",
-    ],
-  },
-  {
-    title: "Bachelor of Science in Information Technology (B. Sc. IT)",
-    institute: "Kirti M. Doongursee College",
-    duration: "June 2019 – June 2022",
-    cgpa: "9.27",
-    details: ["Secured 1st place in college"],
-  },
-  {
-    title: "HSC – Science",
-    institute: "D. G. Ruparel College",
-    duration: "June 2018 – May 2019",
-    cgpa: "64.31%",
-    details: ["Bifocal vocational in Computer Science"],
-  },
-];
+// Parallax swiper with equal height sync
+const ParallaxSwiper = ({ items, CardComponent }) => {
+  const swiperRef = useRef(null);
 
-const certificationItems = [
+  const adjustHeights = () => {
+    if (!swiperRef.current) return;
+    const slides = swiperRef.current.querySelectorAll(".swiper-slide");
+    let maxHeight = 0;
+    slides.forEach(slide => {
+      slide.style.height = "auto"; // reset first
+      maxHeight = Math.max(maxHeight, slide.offsetHeight);
+    });
+    slides.forEach(slide => {
+      slide.style.height = `${maxHeight}px`;
+    });
+  };
 
-  {
-    name: "Data Analyst Certification",
-    issuer: "OneRoadmap",
-    issued: "April 2025",
-    credential_id: "CERT-907937FE",
-    skills: ["Data Analysis"],
-  },
-  {
-    name: "Electronic Arts - Software Engineering Job Simulation",
-    issuer: "Forage",
-    issued: "April 2025",
-    credential_id: "sHjhhAqfp9zJNqnFa",
-    skills: ["Software Engineering Practices"],
-  },
-  {
-    name: "Master Microservices with Spring Boot and Spring Cloud",
-    issuer: "Udemy",
-    issued: "February 2025",
-    credential_id: "",
-    skills: ["Spring Boot", "Java", "Kubernetes", "Docker", "Microservices"],
-  },
-  {
-    name: "Career Essentials in Data Analysis",
-    issuer: "Microsoft and LinkedIn",
-    issued: "October 2024",
-    credential_id: null,
-    skills: ["Data Visualization", "Data Analytics", "Data Analysis"],
-  },
-  {
-    name: "J.P. Morgan - Software Engineering Job Simulation",
-    issuer: "Forage",
-    issued: "February 2024",
-    credential_id: "Fdy2ajvNbEQY8GMav",
-    skills: ["Software Engineering Practices"],
-  },
-  {
-    name: "Building Scalable Java Microservices with Spring Boot and Spring Cloud",
-    issuer: "Google Cloud Training",
-    issued: "January 2024",
-    credential_id: "4CKUPQXLYFE6",
-    skills: ["Java", "Spring Boot"],
-  },
-  {
-    name: "Java Programming Fundamentals",
-    issuer: "Infosys Springboard",
-    issued: "January 2024",
-    credential_id: null,
-    skills: ["Java"],
-  },
-  {
-    name: "AWS Academy Graduate - Cloud Foundations",
-    issuer: "Amazon Web Services (AWS)",
-    issued: "December 2023",
-    credential_id: null,
-    skills: ["Cloud Basics", "AWS"],
-  },
-  {
-    name: "Java (Basics)",
-    issuer: "HackerRank",
-    issued: "September 2023",
-    credential_id: null,
-    skills: ["Java"],
-  },
-  {
-    name: "MongoDB Basics - ICT Academy Learnathon",
-    issuer: "MongoDB",
-    issued: "August 2023",
-    credential_id: "MDB0y81y957w4",
-    skills: ["MongoDB"],
-  },
-  {
-    name: "AWS Academy Graduate - Machine Learning Foundations",
-    issuer: "Amazon Web Services (AWS)",
-    issued: "June 2023",
-    credential_id: null,
-    skills: ["Machine Learning", "AWS"],
-  },
-];
-
-export default function Education() {
-  // No more useState needed! We are just displaying a static list.
+  useEffect(() => {
+    adjustHeights();
+    window.addEventListener("resize", adjustHeights);
+    return () => window.removeEventListener("resize", adjustHeights);
+  }, [items]);
 
   return (
-    <div className="min-h-screen text-white p-4 sm:p-6 lg:p-8">
-      <div className="max-w-7xl mx-auto ">
-        {/* Main page title */}
-        <h1 className="text-5xl font-bold text-center mb-12 text-cyan-400">
-          My Journey
+    <Swiper
+      modules={[Parallax, Pagination, Autoplay]}
+      parallax={true}
+      speed={600}
+      spaceBetween={24}
+      pagination={{ clickable: true }}
+      autoplay={false}
+      className="h-[20rem] md:h-[28rem]"
+      onSwiper={(swiper) => {
+        swiperRef.current = swiper.el;
+        adjustHeights();
+      }}
+      onSlideChange={adjustHeights}
+    >
+      {items.map((item, idx) => (
+        <SwiperSlide
+          key={item.credential_id ?? `${item.name ?? "item"}-${idx}`}
+        >
+          <div className="h-full flex items-stretch">
+            <div className="w-full">
+              <CardComponent item={item} />
+            </div>
+          </div>
+        </SwiperSlide>
+      ))}
+    </Swiper>
+  );
+};
+
+const TimelineView = ({ items, CardComponent }) => {
+  const timelineRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    container: timelineRef,
+  });
+
+  return (
+    <div className="relative h-[20rem] md:h-[28rem] ">
+      <div
+        className="absolute left-5 top-0 h-full w-[2px] bg-neutral-800
+                   [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]"
+      />
+      <motion.div
+        className="absolute left-5 top-0 h-full w-[2px] bg-gradient-to-b from-transparent via-cyan-400 to-emerald-500"
+        style={{
+          scaleY: scrollYProgress,
+          transformOrigin: "top",
+        }}
+      />
+      <div
+        ref={timelineRef}
+        className="h-full hide-scrollbar overflow-y-auto p-4 pl-12"
+      >
+        <div className="space-y-8">
+          {items.map((item, idx) => (
+            <CardComponent
+              key={item.credential_id ?? `${item.name ?? item.title}-${idx}`}
+              item={item}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default function Education({interactiveMode}) {
+  // const [isParallaxMode, setIsParallaxMode] = useState(true);
+
+  return (
+    <div id="education" className="text-white p-4 sm:p-6 lg:p-10 pt-15 scroll-mt-15">
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-4xl sm:text-5xl font-bold text-white text-center">
+          Learning & Achievements
         </h1>
-        <div className="lg:flex lg:gap-10 ">
-          {/* --- Education Section --- */}
-          <section className="mb-7 flex-1">
-            <h2 className="text-3xl font-semibold mb-8 flex items-center gap-3">
-              <FaGraduationCap className="text-cyan-400" />
-              Education
+        <div className="h-1 w-24 bg-emerald-500 mx-auto my-8 rounded-full" />
+
+        {/* <div className="mb-6 flex justify-center items-center gap-2 text-white">
+          <label className="relative inline-flex cursor-pointer items-center">
+            <input
+              type="checkbox"
+              className="peer sr-only"
+              checked={isParallaxMode}
+              onChange={() => setIsParallaxMode(!isParallaxMode)}
+            />
+            <div className="peer h-5 w-10 rounded-full bg-gray-600 after:absolute after:left-[2px] after:top-[2px] after:h-4 after:w-4 after:rounded-full after:bg-white after:transition-all peer-checked:bg-sky-500 peer-checked:after:translate-x-5"></div>
+          </label>
+          <span className="text-sm">
+            {isParallaxMode ? "Parallax" : "Timeline"}
+          </span>
+        </div> */}
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+          <section aria-labelledby="education-heading">
+            <h2
+              id="education-heading"
+              className="text-2xl md:text-3xl font-semibold mb-4 flex items-center justify-center gap-3"
+            >
+              <FaGraduationCap className="text-emerald-500" /> Education
             </h2>
-         
-              <Swiper
-                speed={600}
-                spaceBetween={30}
-                parallax={true}
-                // autoplay={{ delay: 3000, disableOnInteraction: false}}
-                modules={[Parallax, Autoplay, Pagination]}
-                className="w-full md:w-2xl"
-              >
-                {educationItems.map((item) => (
-                  <SwiperSlide key={item.title}>
-                    <EducationCardContent item={item} />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-           
+            {interactiveMode ? (
+              <ParallaxSwiper
+                items={educationItems}
+                CardComponent={EducationCard}
+              />
+            ) : (
+              <TimelineView
+                items={educationItems}
+                CardComponent={TimelineEducation}
+              />
+            )}
           </section>
 
-          {/* --- Certifications Section --- */}
-          <section className="flex-1">
-            <h2 className="text-3xl w-full font-semibold mb-8 flex items-center gap-3">
-              <FaCertificate className="text-cyan-400" />
-              Certifications
+          <section aria-labelledby="certification-heading">
+            <h2
+              id="certification-heading"
+              className="text-2xl md:text-3xl font-semibold mb-4 flex items-center justify-center gap-3"
+            >
+              <FaCertificate className="text-emerald-500" /> Certifications
             </h2>
-              <Swiper
-                speed={600}
-                spaceBetween={50}
-                parallax={true}
-                // autoplay={{ delay: 3000, disableOnInteraction: false}}
-                modules={[Parallax, Autoplay, Pagination]}
-                className="w-full md:w-2xl"
-              >
-                {certificationItems.map((item, i) => (
-                  <SwiperSlide key={item.credential_id || `${item.name}-${i}`}>
-                    <CertificationCardContent item={item} />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
+            {interactiveMode ? (
+              <ParallaxSwiper
+                items={certificationItems}
+                CardComponent={CertificationCard}
+              />
+            ) : (
+              <TimelineView
+                items={certificationItems}
+                CardComponent={TimelineCertification}
+              />
+            )}
           </section>
         </div>
       </div>
