@@ -60,7 +60,7 @@ const buttonLabel = {
   />
   <button
     onClick={toggleBackground}
-    className="text-white border border-white/20 hover:text-emerald-500 hover:border-emerald-500"
+    className="text-white border border-white/20 hover:text-emerald-500 hover:border-emerald-500 p-1"
   >
     {buttonLabel[backgroundMode]}
   </button>
@@ -115,7 +115,7 @@ const buttonLabel = {
       />
       <button
         onClick={toggleBackground}
-        className="text-white border border-white/20 hover:text-emerald-500 hover:border-emerald-500"
+        className="text-white border border-white/20 hover:text-emerald-500 hover:border-emerald-500 p-1"
       >
         {buttonLabel[backgroundMode]}
       </button>
