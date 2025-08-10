@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { FaGraduationCap, FaCertificate } from "react-icons/fa";
 import { EducationCard, CertificationCard } from "../components/CardComponent";
 import {
@@ -10,10 +10,7 @@ import { Parallax, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/parallax";
 import "swiper/css/pagination";
-import {
-  educationItems,
-  certificationItems,
-} from "../components/EducationData";
+import { educationItems, certificationItems } from "../data/EducationData";
 import { motion, useScroll } from "framer-motion";
 
 // Parallax swiper with equal height sync
@@ -24,11 +21,11 @@ const ParallaxSwiper = ({ items, CardComponent }) => {
     if (!swiperRef.current) return;
     const slides = swiperRef.current.querySelectorAll(".swiper-slide");
     let maxHeight = 0;
-    slides.forEach(slide => {
+    slides.forEach((slide) => {
       slide.style.height = "auto"; // reset first
       maxHeight = Math.max(maxHeight, slide.offsetHeight);
     });
-    slides.forEach(slide => {
+    slides.forEach((slide) => {
       slide.style.height = `${maxHeight}px`;
     });
   };
@@ -58,10 +55,20 @@ const ParallaxSwiper = ({ items, CardComponent }) => {
         <SwiperSlide
           key={item.credential_id ?? `${item.name ?? "item"}-${idx}`}
         >
-          <div className="h-full flex items-stretch">
-            <div className="w-full">
-              <CardComponent item={item} />
-            </div>
+          <div
+            className="h-full flex items-stretch w-full"
+            onMouseEnter={(e) => {
+              e.currentTarget.querySelectorAll("*").forEach((el) => {
+                el.style.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+              });
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.querySelectorAll("*").forEach((el) => {
+                el.style.color = "";
+              });
+            }}
+          >
+            <CardComponent item={item} />
           </div>
         </SwiperSlide>
       ))}
@@ -76,7 +83,7 @@ const TimelineView = ({ items, CardComponent }) => {
   });
 
   return (
-    <div className="relative h-[20rem] md:h-[28rem] ">
+    <div className="relative h-[20rem] md:h-[28rem] backdrop-blur-2xl border border-white/30 rounded-2xl hover:border-emerald-500 ">
       <div
         className="absolute left-5 top-0 h-full w-[2px] bg-neutral-800
                    [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]"
@@ -105,11 +112,14 @@ const TimelineView = ({ items, CardComponent }) => {
   );
 };
 
-export default function Education({interactiveMode}) {
+export default function Education({ interactiveMode }) {
   // const [isParallaxMode, setIsParallaxMode] = useState(true);
 
   return (
-    <div id="education" className="text-white p-4 sm:p-6 lg:p-10 pt-15 scroll-mt-15">
+    <div
+      id="education"
+      className="text-white p-4 sm:p-6 lg:p-10 pt-15 scroll-mt-15"
+    >
       <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl sm:text-5xl font-bold text-white text-center">
           Learning & Achievements

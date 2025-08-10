@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { GoCheckCircleFill } from "react-icons/go";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCoverflow, Pagination, EffectCube } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/effect-coverflow';
-import 'swiper/css/pagination';
-import 'swiper/css/effect-cube';
+import { EffectCoverflow, Pagination, EffectCube } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/effect-coverflow";
+import "swiper/css/pagination";
+import "swiper/css/effect-cube";
 import ProjectCard from "../components/ProjectCard";
 
-import projectData from "../components/ProjectData";
+import projectData from "../data/ProjectData";
 
 const adjustHeights = () => {
   const cards = document.querySelectorAll(".project-card");
   if (!cards.length) return;
 
   // Reset heights
-  cards.forEach(c => (c.style.height = "auto"));
+  cards.forEach((c) => (c.style.height = "auto"));
 
   let maxHeight = 0;
-  cards.forEach(c => {
+  cards.forEach((c) => {
     maxHeight = Math.max(maxHeight, c.offsetHeight);
   });
 
-  cards.forEach(c => (c.style.height = `${maxHeight}px`));
+  cards.forEach((c) => (c.style.height = `${maxHeight}px`));
 };
 
 const Creative = ({ projects }) => {
@@ -33,32 +33,31 @@ const Creative = ({ projects }) => {
     return () => window.removeEventListener("resize", adjustHeights);
   }, [projects]);
   return (
- <Swiper
-        effect={'coverflow'}
-        grabCursor={true}
-        centeredSlides={true}
-        slidesPerView={1}
-        coverflowEffect={{
-          rotate: 50,
-          stretch: 0,
-          depth: 100,
-          modifier: 1,
-          slideShadows: true,
-        }}
-        pagination={true}
-        modules={[EffectCoverflow, Pagination]}
-        onSwiper={() => setTimeout(adjustHeights, 0)}
+    <Swiper
+      effect={"coverflow"}
+      grabCursor={true}
+      centeredSlides={true}
+      slidesPerView={1}
+      coverflowEffect={{
+        rotate: 50,
+        stretch: 0,
+        depth: 100,
+        modifier: 1,
+        slideShadows: true,
+      }}
+      pagination={true}
+      modules={[EffectCoverflow, Pagination]}
+      onSwiper={() => setTimeout(adjustHeights, 0)}
       onResize={adjustHeights}
       onSlideChange={adjustHeights}
-      className="backdrop-blur-xl"
-      >
+    >
       {projects.map((project, i) => (
         <SwiperSlide
           key={i}
           // className="w-[320px] h-[420px] flex items-stretch"
         >
-          <div className="h-full flex items-stretch">
-            <div className="w-full">
+          <div className="h-full flex items-stretch backdrop-blur-2xl rounded-2xl">
+            <div className="w-full ">
               <ProjectCard project={project} />
             </div>
           </div>
@@ -75,43 +74,40 @@ const Cube = ({ projects }) => {
     return () => window.removeEventListener("resize", adjustHeights);
   }, [projects]);
   return (
-<Swiper
-        effect={'cube'}
-          loop={true}
-        grabCursor={true}
-        cubeEffect={{
-          shadow: true,
-          slideShadows: true,
-          shadowOffset: 20,
-          shadowScale: 0.94,
-        }}
-        pagination={true}
-        modules={[EffectCube, Pagination]}
-        onSwiper={() => setTimeout(adjustHeights, 0)}
+    <Swiper
+      effect={"cube"}
+      loop={true}
+      grabCursor={true}
+      cubeEffect={{
+        shadow: true,
+        slideShadows: true,
+        shadowOffset: 20,
+        shadowScale: 0.94,
+      }}
+      pagination={true}
+      modules={[EffectCube, Pagination]}
+      onSwiper={() => setTimeout(adjustHeights, 0)}
       onResize={adjustHeights}
       onSlideChange={adjustHeights}
-     className="backdrop-blur-xl"
-      >
+    >
       {projects.map((project, i) => (
-        <SwiperSlide
-          key={i}
-          // className="w-[320px] h-[420px] flex items-stretch"
-        >
-          
-            <div className="w-full">
-              <ProjectCard project={project} />
-            </div>
-        
+        <SwiperSlide key={i} className="backdrop-blur-2xl rounded-2xl">
+          <div className="w-full interactive-text">
+            <ProjectCard project={project} />
+          </div>
         </SwiperSlide>
       ))}
     </Swiper>
   );
 };
 
-export default function Project({interactiveMode}) {
+export default function Project({ interactiveMode }) {
   // const [isCreative, setCreative] = useState(true);
   return (
-    <div id="project" className="w-full flex flex-col items-center p-4 sm:p-8 font-sans pt-15 scroll-mt-15">
+    <div
+      id="project"
+      className="w-full flex flex-col items-center p-4 sm:p-8 font-sans pt-15 scroll-mt-15"
+    >
       <div className="w-full max-w-7xl mx-auto">
         <h1 className="text-4xl sm:text-5xl font-bold text-white text-center">
           My Projects
@@ -135,7 +131,7 @@ export default function Project({interactiveMode}) {
         {interactiveMode ? (
           <Cube projects={projectData} />
         ) : (
-           <Creative projects={projectData} />
+          <Creative projects={projectData} />
         )}
       </div>
     </div>

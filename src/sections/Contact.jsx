@@ -1,197 +1,190 @@
-import React from "react";
-import {
-  FaGithub,
-  FaLinkedin,
-  FaTwitter,
-  FaEnvelope,
-  FaPhone,
-} from "react-icons/fa";
-import { FiSend } from "react-icons/fi";
-import { MdClose, MdMinimize, MdCropSquare } from "react-icons/md";
+import React, { useState, useRef, useEffect } from "react";
+import { HiMail, HiPhone, HiLocationMarker } from "react-icons/hi";
+import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 
-// Main App Component
+const PROMPT = "C:\\Users\\Gaurang>";
+
 export default function Contact() {
-  // Social Links Component
-  const SocialLink = ({ icon: Icon, href, "aria-label": ariaLabel }) => (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={ariaLabel}
-      className="text-gray-400 hover:text-emerald-400 transition-all duration-300 group"
-    >
-      <Icon className="w-8 h-8 md:w-10 md:h-10 transform group-hover:scale-110 group-hover:shadow-[0_0_20px_#34d399] rounded-full" />
-    </a>
-  );
+  const instructionLine = `${PROMPT} Press 'a' for about, 's' for social, 'd' for details`;
 
-  // Form Input Component
-  const FormInput = ({ type, name, placeholder, required }) => (
-    <div>
-      <label htmlFor={name} className="text-emerald-400">
-        ~/{name}
-      </label>
-      <input
-        type={type}
-        id={name}
-        name={name}
-        placeholder={placeholder}
-        required={required}
-        className="w-full border border-dashed border-white/20 focus:border-emerald-500 hover:border-emerald-500 text-gray-300 placeholder-gray-500 outline-none p-2 mt-1 "
-      />
-    </div>
-  );
+  const [commandBlocks, setCommandBlocks] = useState([]);
+  const [input, setInput] = useState("");
+  const terminalRef = useRef(null);
 
-  // Blinking Cursor Component
-  const BlinkingCursor = () => (
-    <span
-      className="w-2 h-5 bg-emerald-400 animate-blink ml-2"
-      aria-hidden="true"
-    ></span>
-  );
+  // Scroll to bottom only if scroll exists (mostly not needed here)
+  useEffect(() => {
+    terminalRef.current?.scrollTo?.({
+      top: terminalRef.current.scrollHeight,
+      behavior: "smooth",
+    });
+  }, [commandBlocks, input]);
+
+  const handleAbout = () => [
+    "I’m currently open to full-time developer roles, open to freelance work as well",
+  ];
+
+  const handleSocial = () => [
+    <div className="flex items-center space-x-3" key="github">
+      <FaGithub className="w-6 h-6 text-emerald-500 flex-shrink-0" />
+      <a href="https://github.com/GaurangShivalkar" className="text-lg">: https://github.com/GaurangShivalkar</a>
+    </div>,
+    <div className="flex items-center space-x-3" key="linkedin">
+      <FaLinkedin className="w-6 h-6 text-emerald-500 flex-shrink-0" />
+      <a href="https://www.linkedin.com/in/gaurang-shivalkar" className="text-lg">: https://www.linkedin.com/in/gaurang-shivalkar</a>
+    </div>,
+    // <div className="flex items-center space-x-3" key="twitter">
+    //   <FaTwitter className="w-6 h-6 text-emerald-500 flex-shrink-0" />
+    //   <span className="text-lg">: https://twitter.com/yourusername</span>
+    // </div>,
+  ];
+
+  const handleDetails = () => [
+    <div className="flex items-center space-x-3" key="email">
+      <HiMail className="w-6 h-6 text-emerald-500 flex-shrink-0" />
+      <a href="mailto:gaurangshivalkar@gmail.com" className="text-lg">: gaurangshivalkar@gmail.com</a>
+    </div>,
+    <div className="flex items-center space-x-3" key="phone">
+      <HiPhone className="w-6 h-6 text-emerald-500 flex-shrink-0" />
+      <span className="text-lg">: +91 9820793511</span>
+    </div>,
+    <div className="flex items-center space-x-3" key="location">
+      <HiLocationMarker className="w-6 h-6 text-emerald-500 flex-shrink-0" />
+      <span className="text-lg">: Mumbai, Maharashtra, India - 400025</span>
+    </div>,
+  ];
+
+  const processCommand = (cmd) => {
+    const c = cmd.trim().toLowerCase();
+    switch (c) {
+      case "a":
+        return handleAbout();
+      case "s":
+        return handleSocial();
+      case "d":
+        return handleDetails();
+      case "":
+        return [];
+      default:
+        return [`Unknown command: ${cmd}. Use a, s, or d.`];
+    }
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (!input.trim()) return;
+
+    setCommandBlocks((prev) => [
+      ...prev,
+      {
+        cmd: input,
+        output: processCommand(input),
+      },
+    ]);
+    setInput("");
+  };
 
   return (
-    <div
-      id="contact"
-      className="text-white p-4 sm:p-6 lg:p-8 flex items-center justify-center pt-15 scroll-mt-15"
-    >
-      <div className="max-w-7xl w-full flex flex-col items-center">
-        <h1 className="text-4xl sm:text-5xl font-bold text-white text-center">
-          Contact
-        </h1>
-        <div className="h-1 w-24 bg-emerald-500 mx-auto my-8 rounded-full" />
-
-        {/* Terminal Window */}
-        <div className="w-full max-w-4xl backdrop-blur-sm rounded-lg shadow-2xl shadow-emerald-500/10 overflow-hidden border border-white/20">
-          {/* ... rest of your terminal code */}
-
-          {/* Title Bar */}
-          <div className="bg-gray-800/80 flex items-center justify-between px-4 py-2 border-b border-gray-700">
-            <p className="text-sm text-gray-400"></p>
-            <div className="flex items-center space-x-3 text-gray-500">
-              <MdMinimize />
-              <MdCropSquare />
-              <MdClose className="hover:text-red-500 transition-colors" />
-            </div>
+    <div className="flex items-center justify-center p-12">
+      <div
+        className="max-w-7xl w-full rounded-md shadow-xl border border-white/20 hover:border-emerald-500"
+        style={{ fontFamily: "'Courier New', Courier, monospace" }}
+      >
+        {/* Title bar */}
+        <div className="bg-gray-700/30 backdrop-blur-2xl flex items-center justify-between px-6 h-12 rounded-t-md border-b border-white/20">
+          <div className="text-white font-semibold text-base select-text">
+            C:\Windows\System32\cmd.exe
           </div>
-
-          {/* Terminal Body */}
-          <div className="p-4 md:p-8">
-            <div className="flex items-center">
-              <span className="text-emerald-400">
-                C:/Users/Guest/Contact.jsx
-              </span>
-
-              <BlinkingCursor />
-            </div>
-
-            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-              {/* Left Side: Info & Socials */}
-              <div className="space-y-6">
-                <h2 className="text-xl md:text-2xl text-emerald-400">
-                  [ Contact Information ]
-                </h2>
-                <p className="text-gray-400 leading-relaxed">
-                  I'm currently available for freelance work and open to
-                  discussing new projects. Feel free to reach out via email or
-                  connect with me on social media.
-                </p>
-                <div className="flex items-center space-x-4 text-emerald-400">
-                  <FaEnvelope className="w-5 h-5" />
-                  <a
-                    href="mailto:your-email@example.com"
-                    className="hover:underline"
-                  >
-                    your-email@example.com
-                  </a>
-                </div>
-                <div className="flex items-center space-x-4 text-emerald-400">
-                  <FaPhone className="w-5 h-5" />
-                  <a href="tel:+1234567890" className="hover:underline">
-                    +9820793511
-                  </a>
-                </div>
-
-                <h3 className="text-lg text-emerald-400 pt-4">
-                  [ Social Links ]
-                </h3>
-                <div className="flex space-x-6 items-center mt-2">
-                  <SocialLink
-                    icon={FaGithub}
-                    href="https://github.com"
-                    aria-label="GitHub Profile"
-                  />
-                  <SocialLink
-                    icon={FaLinkedin}
-                    href="https://linkedin.com"
-                    aria-label="LinkedIn Profile"
-                  />
-                  <SocialLink
-                    icon={FaTwitter}
-                    href="https://twitter.com"
-                    aria-label="Twitter Profile"
-                  />
-                </div>
-              </div>
-
-              {/* Right Side: Contact Form */}
-              <form className="space-y-6" action="#" method="POST">
-                <FormInput
-                  type="text"
-                  name="name"
-                  placeholder="Enter your name"
-                  required
-                />
-                <FormInput
-                  type="email"
-                  name="email"
-                  placeholder="Enter your email"
-                  required
-                />
-                <div>
-                  <label htmlFor="message" className="text-emerald-400">
-                    ~/message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows="4"
-                    placeholder="Your message here..."
-                    required
-                    className="w-full  border border-dashed border-white/20 focus:border-emerald-500 hover:border-emerald-500 text-gray-300 placeholder-gray-500 outline-none p-2 mt-1 transition-colors duration-300 resize-none"
-                  ></textarea>
-                </div>
-                <button
-                  type="submit"
-                  className="w-full flex items-center justify-center relative px-4 py-3 border border-dashed border-white/20 text-white rounded-md shine-hover 
-                hover:text-emerald-500 hover:border-emerald-500 transition-all duration-300 group focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50"
-                >
-                  Execute Send
-                  <FiSend className="ml-3 transform group-hover:rotate-45 transition-transform duration-300" />
-                </button>
-              </form>
-            </div>
-
-            <div className="mt-8 text-xs text-gray-500">
-              <p>Process finished with exit code 0</p>
-            </div>
+          <div className="flex space-x-3">
+            <button
+              aria-label="Minimize"
+              className="w-6 h-6 flex items-center justify-center hover:bg-gray-400 rounded"
+            >
+              <span className="w-4 border-t-2 border-white"></span>
+            </button>
+            <button
+              aria-label="Maximize"
+              className="w-6 h-6 flex items-center justify-center hover:bg-gray-400 rounded relative"
+            >
+              <div className="w-4 h-4 border-2 border-white absolute top-1 left-1"></div>
+              <div className="w-4 h-4 border-2 border-white"></div>
+            </button>
+            <button
+              aria-label="Close"
+              className="w-6 h-6 flex items-center justify-center hover:bg-red-600 rounded"
+            >
+              <svg
+                className="w-4 h-4 text-white"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                viewBox="0 0 24 24"
+              >
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
           </div>
         </div>
-        <style>{`
-        @keyframes blink {
-          50% { opacity: 0; }
-        }
-        .animate-blink {
-          animation: blink 1s step-end infinite;
-        }
-        .type-effect {
-            white-space: nowrap;
-            overflow: hidden;
-            display: inline-block;
-            animation: typing 2s steps(30, end);
-        }
-       
-    `}</style>
+
+        {/* Terminal content */}
+        <div
+          ref={terminalRef}
+          className="bg-black/50 backdrop-blur-2xl text-emerald-500 text-xl p-8 max-h-[600px] overflow-y-auto hide-scrollbar whitespace-pre-wrap relative rounded-b-md flex flex-col"
+          style={{ lineHeight: "1.8", fontVariantLigatures: "none" }}
+        >
+          {/* Instruction line */}
+          <div className="mb-8">
+            <span>{instructionLine}</span>
+          </div>
+
+          {/* Render all previous command blocks */}
+          <div className="space-y-8 flex-grow">
+            {commandBlocks.map(({ cmd, output }, idx) => (
+              <div key={idx}>
+                <div>
+                  <span>{PROMPT} {cmd}</span>
+                </div>
+
+                <div className="mt-5 space-y-4 text-lg">
+                  {output.map((line, i) =>
+                    typeof line === "string" ? (
+                      <div key={i}>{line}</div>
+                    ) : (
+                      <div key={i}>{line}</div>
+                    )
+                  )}
+                </div>
+
+                <div className="border-2 border-dashed border-emerald-500 mt-6" />
+              </div>
+            ))}
+          </div>
+
+          {/* Input prompt moves after all output */}
+          <form
+            onSubmit={onSubmit}
+            className="flex items-center pt-4 mt-4"
+          >
+            <span className="mr-4 text-xl">{PROMPT}</span>
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              autoFocus
+              spellCheck={false}
+              autoComplete="off"
+              autoCorrect="off"
+              autoCapitalize="none"
+              className=" flex-grow text-emerald-500 font-mono text-xl outline-none   caret-green-400"
+              placeholder="Type command (a, s, d) and press Enter"
+            />
+          </form>
+        </div>
       </div>
     </div>
   );
+
+
 }

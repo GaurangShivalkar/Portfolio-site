@@ -3,7 +3,7 @@ import { FaUniversity, FaCalendarAlt, FaStar, FaAward, FaIdBadge } from 'react-i
 
 
 const CardWrapper = ({ children }) => (
-  <div className="backdrop-blur-xl border border-amber-50/10 rounded-2xl w-full h-full p-6 flex flex-col justify-center shadow-lg group hover:shadow-2xl transition-shadow">
+  <div className="backdrop-blur-xl border border-white/20 rounded-2xl w-full h-full p-6 flex flex-col justify-center group hover:border-emerald-500 transition-shadow">
     {children}
   </div>
 );
@@ -34,7 +34,7 @@ export const EducationCard = ({ item }) => (
 export const CertificationCard = ({ item }) => (
   <CardWrapper>
     <div>
-      <h3 className="text-2xl md:text-3xl font-extrabold text-white mb-1" data-swiper-parallax="-500">{item.name}</h3>
+      <h3 className="text-2xl md:text-3xl font-extrabold text-white" data-swiper-parallax="-500">{item.name}</h3>
 
       <p className="text-md text-emerald-400 font-semibold flex items-center gap-2 mb-3" data-swiper-parallax="-320">
         <FaAward /> Issued by {item.issuer}
@@ -42,7 +42,7 @@ export const CertificationCard = ({ item }) => (
 
       <div className="flex flex-wrap gap-4 text-slate-400 mb-4" data-swiper-parallax="-320">
         <span className="flex items-center gap-2"><FaCalendarAlt /> {item.issued}</span>
-        <span className="flex items-center gap-2 font-mono"><FaIdBadge /> {item.credential_id ?? 'N/A'}</span>
+        <span className="flex items-center gap-2 font-mono"><FaIdBadge /> Credential ID: {item.credential_id ?? 'N/A'}</span>
       </div>
 
       <div data-swiper-parallax="-320">

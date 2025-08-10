@@ -5,7 +5,7 @@ import { FaUniversity, FaCalendarAlt, FaStar, FaAward, FaIdBadge } from 'react-i
 
 export const TimelineEducation = ({ item }) => (
 
-    <div className='w-full h-full p-6 flex flex-col justify-betwee'>
+    <div className='w-full h-full p-6 flex  flex-col justify-betwee'>
       <h3 className="text-2xl md:text-3xl font-extrabold text-white mb-1" data-swiper-parallax="-220">{item.title}</h3>
 
       <p className="text-md text-emerald-400 font-semibold flex items-center gap-2 mb-3" data-swiper-parallax="-120">

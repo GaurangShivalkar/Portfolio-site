@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import skillsData from "../components/SkillData";
+import React from "react";
+import skillsData from "../data/SkillData";
 import { SkillCard } from "../components/SkillCard";
+
 
 const Skills = ({interactiveMode}) => {
   //const [isOrbitMode, setIsOrbitMode] = useState(true);

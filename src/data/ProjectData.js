@@ -44,8 +44,8 @@ const projectData = [
       "Engaged in agile development, used Postman for testing, Swagger for documentation, GitHub for deployment.",
     ],
     date: "Jul 2024",
-    github: "https://github.com/example/banking-prototype",
-    live: "https://example.com/banking-demo",
+    github: "https://github.com/GaurangShivalkar/eKYCBackend",
+    live: "",
     source: "Logixal Cloud Solution LLP",
   },
   {
@@ -60,7 +60,7 @@ const projectData = [
       "Implemented an interactive forum-style discussion system, allowing users to comment and engage in topic-specific conversations."
     ],
     date: "Jul 2023",
-    github: "https://github.com/example/newsnexus",
+    github: "https://github.com/GaurangShivalkar/News-FX",
     live: "",
     source: "Personal Project",
   },
@@ -76,8 +76,8 @@ const projectData = [
       "Built authentication strategies and modular backend for managing a large user base.",
     ],
     date: "Mar 2022",
-    github: "https://github.com/example/proconnect",
-    live: "https://example.com/proconnect-demo",
+    github: "https://github.com/GaurangShivalkar/Professional-Networking-Site",
+    live: "",
     source: "Personal Project",
   },
 ];

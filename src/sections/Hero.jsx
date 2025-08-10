@@ -1,7 +1,7 @@
 import { useScramble } from "../hooks/useScramble";
 import Spline from "@splinetool/react-spline";
 
-const Hero = () => {
+const Hero = ({ interactiveMode }) => {
   const nameLine = useScramble("Hey, I'm Gaurang Shivalkar", 40);
   const paraLine = useScramble(
     "MCA graduate with 11 months of internship experience in backend systems, API integration, and full-stack development using Java and React.",
@@ -10,9 +10,11 @@ const Hero = () => {
   );
 
   return (
-    <section id="hero" className="min-h-screen w-full flex flex-col items-center justify-center px-4 sm:px-8 font-mono">
+    <section
+      id="hero"
+      className="min-h-screen w-full flex flex-col items-center justify-center px-4 sm:px-8 font-mono"
+    >
       <div className="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-        
         {/* Left column - text */}
         <div className="flex flex-col justify-center">
           <p className="text-pink-400 text-4xl sm:text-xl mb-2">
@@ -36,9 +38,10 @@ const Hero = () => {
 
         {/* Right column - Spline */}
         <div className="flex justify-center items-center w-full">
-          <Spline scene="https://prod.spline.design/Jb1UfHqqnPZyVZqQ/scene.splinecode" />
+          {interactiveMode && (
+            <Spline scene="https://prod.spline.design/Jb1UfHqqnPZyVZqQ/scene.splinecode" />
+          )}
         </div>
-
       </div>
     </section>
   );

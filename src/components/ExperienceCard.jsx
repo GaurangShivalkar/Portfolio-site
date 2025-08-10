@@ -12,10 +12,10 @@ const ExperienceCard = ({ experience }) => {
 
       <div className="group relative border border-white/10 backdrop-blur-xl hover:border-emerald-500 rounded-2xl p-6 h-full flex flex-col ">
         {/* Glow blob */}
-        <div
+        {/* <div
           className="absolute -top-10 -right-10 w-40 h-40 bg-emerald-500 opacity-20 blur-3xl pointer-events-none"
           data-atropos-offset="-10"
-        />
+        /> */}
 
         {/* Header */}
         <div className="flex items-start gap-4 mb-4">

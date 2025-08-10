@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import Navbar from "./sections/Navbar";
 import Hero from "./sections/Hero";
 import AboutMe from "./sections/AboutMe";
@@ -10,6 +10,7 @@ import ParticlesContainer from "./components/ParticlesContainer";
 import Skills from "./sections/Skills";
 import VantaBackground from "./components/VantaBackground";
 import VantaBirds from "./components/VantaBirds";
+
 const App = () => {
   const [interactiveMode, setInteractiveMode] = useState(false);
   const [backgroundMode, setBackgroundMode] = useState("particles"); // 'particles' | 'clouds' | 'birds'
@@ -20,6 +21,12 @@ const toggleBackground = () => {
       return "particles";
     });
   };
+
+  useEffect(() => {
+  window.history.scrollRestoration = "manual";
+  window.scrollTo(0, 0);
+}, []);
+
   return (
     <div className="relative w-full min-h-screen overflow-x-hidden ">
      <div className="absolute inset-0 -z-10 pointer-events-none">
@@ -42,7 +49,7 @@ const toggleBackground = () => {
         <Skills interactiveMode={interactiveMode} />
         <Experience interactiveMode={interactiveMode} />
         <Project interactiveMode={interactiveMode} />
-        <Contact interactiveMode={interactiveMode} />
+        <Contact />
       </div>
     </div>
   );

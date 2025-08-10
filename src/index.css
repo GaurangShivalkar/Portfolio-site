@@ -84,3 +84,25 @@ body {
   background-color: #10B981; /* Tailwind emerald-500 hex */
   border-color: #10B981;
 }
+
+.interactive-text h1,
+.interactive-text h2,
+.interactive-text h3,
+.interactive-text p,
+.interactive-text span,
+.interactive-text a,
+.interactive-text li {
+ 
+  transition: transform 0.15s ease;
+}
+
+.interactive-text h1:hover,
+.interactive-text h2:hover,
+.interactive-text h3:hover,
+.interactive-text p:hover,
+.interactive-text span:hover,
+.interactive-text a:hover,
+.interactive-text li:hover {
+  transform: scale(1.3);
+}
+

@@ -6,7 +6,7 @@ export const educationItems = [
     cgpa: "8.86",
     details: [
       "Published a research paper",
-      "Secured internship with placement",
+      // "Secured internship with placement",
     ],
   },
   {

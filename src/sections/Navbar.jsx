@@ -50,7 +50,7 @@ const buttonLabel = {
           >
             Gaurang Shivalkar
           </a>
-<div className="hidden sm:flex items-center gap-6">
+<div className="hidden lg:flex items-center gap-6">
   {/* Desktop: toggle + button visible here */}
   <ToggleSwitch
     checked={interactiveMode}
@@ -65,7 +65,7 @@ const buttonLabel = {
     {buttonLabel[backgroundMode]}
   </button>
 </div>  {/* Desktop Nav */}
-          <ul className="hidden sm:flex space-x-6">
+          <ul className="hidden lg:flex space-x-6">
             {links.map((link) => (
               <li key={link.id}>
                 <a
@@ -81,7 +81,7 @@ const buttonLabel = {
           
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="flex cursor-pointer text-white focus:outline-none active:text-emerald-600 sm:hidden"
+            className="flex cursor-pointer text-white focus:outline-none active:text-emerald-600 lg:hidden"
           >
             {isOpen ? (
               <HiX className="w-6 h-6" />
@@ -93,7 +93,7 @@ const buttonLabel = {
       </div>
       {/* Mobile Menu */}
       {isOpen && (
-        <ul className="sm:hidden px-4 pb-4 space-y-2">
+        <ul className="lg:hidden px-4 pb-4 space-y-2">
           {links.map((link) => (
             <li key={link.id}>
               <a

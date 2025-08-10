@@ -21,7 +21,7 @@ export default function ProjectCard({ project }) {
 //     return () => window.removeEventListener("resize", adjustHeights);
 //   }, [project]); 
   return (
-    <article className="project-card p-6 sm:p-8 rounded-2xl border  border-white/20 flex flex-col transition-all duration-300 hover:border-emerald-500/30 hover:shadow-xl hover:shadow-emerald-900/20">
+    <article className="project-card p-6 sm:p-8 rounded-2xl border  border-white/20 flex flex-col transition-all duration-300 hover:border-emerald-500 ">
       
       {/* Header */}
       <header className="flex justify-between items-start mb-3">
@@ -33,14 +33,22 @@ export default function ProjectCard({ project }) {
       <p className="text-gray-300 mb-6">{description}</p>
 
       {/* Bullets */}
-      <ul className="space-y-3 text-gray-300 mb-6">
-        {bullets.map((bullet, idx) => (
-          <li key={idx} className="flex items-start gap-3">
-            <GoCheckCircleFill className="w-4 h-4 text-emerald-500 mt-1 flex-shrink-0" />
-            <span>{bullet}</span>
-          </li>
-        ))}
-      </ul>
+<ul className="space-y-3 text-gray-300 mb-6">
+  {bullets.map((bullet, idx) => (
+    <li key={idx} className="flex items-start gap-3">
+      <GoCheckCircleFill
+        id="bullet"
+        className="w-4 h-4 text-emerald-500 mt-1 flex-shrink-0"
+      />
+      <div className="pl-0.5">
+        <span className="inline-block origin-left ">
+          {bullet}
+        </span>
+      </div>
+    </li>
+  ))}
+</ul>
+
 
       {/* Footer */}
       <footer className="mt-auto pt-4 border-t border-gray-700/50 flex flex-wrap gap-4 justify-between items-center">
