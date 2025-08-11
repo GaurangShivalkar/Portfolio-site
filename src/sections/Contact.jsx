@@ -84,7 +84,7 @@ export default function Contact() {
   };
 
   return (
-   <div className="flex items-center justify-center p-6 sm:p-12 ">
+   <div id="contact" className="flex items-center justify-center p-6 sm:p-12 ">
       <div
         className="max-w-7xl w-full rounded-md shadow-xl border border-white/20 hover:border-emerald-500"
         style={{ fontFamily: "'Courier New', Courier, monospace" }}
