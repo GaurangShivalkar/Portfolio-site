@@ -84,17 +84,25 @@ export default function Contact() {
   };
 
   return (
-   <div id="contact" className="flex items-center justify-center p-6 sm:p-12 ">
+    <div
+      id="education"
+      className="text-white p-4 sm:p-6 lg:p-10 pt-15 scroll-mt-15"
+    >
+      <div className="max-w-7xl mx-auto">
+            <h1 className="text-4xl sm:text-5xl font-bold text-white text-center">
+          Contact
+        </h1>
+        <div className="h-1 w-24 bg-emerald-500 mx-auto my-8 rounded-full" />
       <div
         className="max-w-7xl w-full rounded-md shadow-xl border border-white/20 hover:border-emerald-500"
         style={{ fontFamily: "'Courier New', Courier, monospace" }}
       >
         {/* Title bar */}
-        <div className="bg-gray-700/30 backdrop-blur-2xl flex items-center justify-between px-6 h-12 rounded-t-md border-b border-white/20">
+        <div className="bg-gray-700/30 backdrop-blur-2xl flex items-center justify-between px-6 h-12 rounded-t-md border-b border-white/20 ">
           <div className="text-white font-semibold text-base select-text">
             C:\Windows\System32\cmd.exe
           </div>
-          <div className="flex space-x-3">
+          <div className="md:flex space-x-3 hidden">
             <button
               aria-label="Minimize"
               className="w-6 h-6 flex items-center justify-center hover:bg-gray-400 rounded"
@@ -182,6 +190,7 @@ export default function Contact() {
             />
           </form>
         </div>
+      </div>
       </div>
     </div>
   );
