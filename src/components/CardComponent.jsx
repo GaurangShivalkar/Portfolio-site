@@ -19,7 +19,7 @@ export const EducationCard = ({ item }) => (
 
       <div className="flex flex-wrap gap-4 text-slate-400 mb-4" data-swiper-parallax="-320">
         <span className="flex items-center gap-2"><FaCalendarAlt /> {item.duration}</span>
-        <span className="flex items-center gap-2 font-mono"><FaStar /> CGPA: {item.cgpa}</span>
+        <span className="flex items-center gap-2 font-mono"><FaStar /> {item.score.label}: {item.score.value}</span>
       </div>
 
       <ul className="list-disc list-inside space-y-2 text-slate-300" data-swiper-parallax="-320">

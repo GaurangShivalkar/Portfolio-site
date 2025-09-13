@@ -3,7 +3,7 @@ export const educationItems = [
     title: "Master in Computer Application (MCA)",
     institute: "MET Institute of Computer Science",
     duration: "November 2022 – July 2024",
-    cgpa: "8.86",
+    score: { label: "CGPA", value: "8.86" },
     details: [
       "Published a research paper",
       // "Secured internship with placement",
@@ -13,15 +13,22 @@ export const educationItems = [
     title: "Bachelor of Science in Information Technology (B. Sc. IT)",
     institute: "Kirti M. Doongursee College",
     duration: "June 2019 – June 2022",
-    cgpa: "9.27",
+    score: { label: "CGPA", value: "9.27" },
     details: ["Secured 1st place in college"],
   },
   {
     title: "HSC – Science",
     institute: "D. G. Ruparel College",
     duration: "June 2018 – May 2019",
-    cgpa: "64.31%",
+    score: { label: "Percentage", value: "64.31%" },
     details: ["Bifocal vocational in Computer Science"],
+  },
+    {
+    title: "SSC",
+    institute: "Air India Modern School",
+    duration: "June 2016 – March 2017",
+    score: { label: "Percentage", value: "88.20" },
+    details: ["Secured 5th rank in school"],
   },
 ];
 
@@ -45,7 +52,7 @@ export const certificationItems = [
     name: "Master Microservices with Spring Boot and Spring Cloud",
     issuer: "Udemy",
     issued: "February 2025",
-    credential_id: "",
+    credential_id: null,
     skills: ["Spring Boot", "Java", "Kubernetes", "Docker", "Microservices"],
   },
   {

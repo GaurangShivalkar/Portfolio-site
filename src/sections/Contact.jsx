@@ -85,7 +85,7 @@ export default function Contact() {
 
   return (
     <div
-      id="education"
+      id="contact"
       className="text-white p-4 sm:p-6 lg:p-10 pt-15 scroll-mt-15"
     >
       <div className="max-w-7xl mx-auto">
@@ -100,7 +100,7 @@ export default function Contact() {
         {/* Title bar */}
         <div className="bg-gray-700/30 backdrop-blur-2xl flex items-center justify-between px-6 h-12 rounded-t-md border-b border-white/20 ">
           <div className="text-white font-semibold text-base select-text">
-            C:\Windows\System32\cmd.exe
+           Contact Details
           </div>
           <div className="md:flex space-x-3 hidden">
             <button
