@@ -122,7 +122,7 @@ export default function Education({ interactiveMode }) {
     >
       <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl sm:text-5xl font-bold text-white text-center">
-          Learning & Achievements
+         Qualifications
         </h1>
         <div className="h-1 w-24 bg-emerald-500 mx-auto my-8 rounded-full" />
 

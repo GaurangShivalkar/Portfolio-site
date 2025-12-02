@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { HiMenu, HiX } from "react-icons/hi";
 
-
 const ToggleSwitch = ({ checked, onChange, onLabel, offLabel }) => {
   return (
     <div className="flex items-center gap-2 text-white">
@@ -12,26 +11,30 @@ const ToggleSwitch = ({ checked, onChange, onLabel, offLabel }) => {
           checked={checked}
           onChange={onChange}
         />
-        <div className="peer h-5 w-10 rounded-full bg-gray-600
+        <div
+          className="peer h-5 w-10 rounded-full bg-gray-600
           after:absolute after:left-[2px] after:top-[2px] after:h-4 after:w-4
           after:rounded-full after:bg-white after:transition-all
-          peer-checked:bg-sky-500 peer-checked:after:translate-x-5"
+          peer-checked:bg-emerald-600 peer-checked:after:translate-x-5"
         ></div>
       </label>
       <span className="text-sm">{checked ? onLabel : offLabel}</span>
     </div>
   );
-}
-const Navbar = ({ interactiveMode, setInteractiveMode, backgroundMode, toggleBackground }) => {
+};
+const Navbar = ({
+  interactiveMode,
+  setInteractiveMode
+}) => {
   const [isOpen, setIsOpen] = useState(false);
-const buttonLabel = {
-    particles: "Switch to Clouds",
-    clouds: "Switch to Birds",
-    birds: "Switch to Particles",
-  };
+  // const buttonLabel = {
+  //   particles: "Switch to Clouds",
+  //   clouds: "Switch to Birds",
+  //   birds: "Switch to Particles",
+  // };
   const links = [
     { name: "Hero", id: "hero" },
-    { name: "Education", id: "education" },
+    { name: "Qualifications", id: "education" },
     { name: "Skills", id: "skills" },
     { name: "Experience", id: "experience" },
     { name: "Projects", id: "project" },
@@ -39,9 +42,7 @@ const buttonLabel = {
   ];
 
   return (
-
-<div className="fixed inset-x-0 top-0 z-50 w-full backdrop-blur-sm shadow-2xl dark:bg-black/30 shine-hover">
-
+    <div className="fixed inset-x-0 top-0 z-50 w-full backdrop-blur-sm shadow-2xl dark:bg-black/30 shine-hover">
       <div className="mx-auto c-space max-w-7xl">
         <div className="flex items-center justify-between py-4 sm:py-3">
           <a
@@ -50,21 +51,22 @@ const buttonLabel = {
           >
             Gaurang Shivalkar
           </a>
-<div className="hidden lg:flex items-center gap-6">
-  {/* Desktop: toggle + button visible here */}
-  <ToggleSwitch
-    checked={interactiveMode}
-    onChange={() => setInteractiveMode(!interactiveMode)}
-    onLabel="Interactive"
-    offLabel="Normal"
-  />
-  <button
-    onClick={toggleBackground}
-    className="text-white border border-white/20 hover:text-emerald-500 hover:border-emerald-500 p-1"
-  >
-    {buttonLabel[backgroundMode]}
-  </button>
-</div>  {/* Desktop Nav */}
+          <div className="hidden lg:flex items-center gap-6">
+            {/* Desktop: toggle + button visible here */}
+            <ToggleSwitch
+              checked={interactiveMode}
+              onChange={() => setInteractiveMode(!interactiveMode)}
+              onLabel="Interactive"
+              offLabel="Normal"
+            />
+            {/* <button
+              onClick={toggleBackground}
+              className="text-white border border-white/20 hover:text-emerald-500 hover:border-emerald-500 p-1"
+            >
+              {buttonLabel[backgroundMode]}
+            </button> */}
+          </div>
+          {/* Desktop Nav */}
           <ul className="hidden lg:flex space-x-6">
             {links.map((link) => (
               <li key={link.id}>
@@ -76,9 +78,8 @@ const buttonLabel = {
                 </a>
               </li>
             ))}
-           
           </ul>
-          
+
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="flex cursor-pointer text-white focus:outline-none active:text-emerald-600 lg:hidden"
@@ -104,24 +105,22 @@ const buttonLabel = {
                 {link.name}
               </a>
             </li>
-            
           ))}
-            <li className="flex flex-col items-center gap-3 mt-4">
-      <ToggleSwitch
-        checked={interactiveMode}
-        onChange={() => setInteractiveMode(!interactiveMode)}
-        onLabel="Interactive"
-        offLabel="Normal"
-      />
-      <button
-        onClick={toggleBackground}
-        className="text-white border border-white/20 hover:text-emerald-500 hover:border-emerald-500 p-1"
-      >
-        {buttonLabel[backgroundMode]}
-      </button>
-    </li>
+          <li className="flex flex-col items-center gap-3 mt-4">
+            <ToggleSwitch
+              checked={interactiveMode}
+              onChange={() => setInteractiveMode(!interactiveMode)}
+              onLabel="Interactive"
+              offLabel="Normal"
+            />
+            {/* <button
+              onClick={toggleBackground}
+              className="text-white border border-white/20 hover:text-emerald-500 hover:border-emerald-500 p-1"
+            >
+              {buttonLabel[backgroundMode]}
+            </button> */}
+          </li>
         </ul>
-        
       )}
     </div>
   );

@@ -17,7 +17,7 @@ const Hero = ({ interactiveMode }) => {
       <div className="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         {/* Left column - text */}
         <div className="flex flex-col justify-center">
-          <p className="text-pink-400 text-4xl sm:text-xl mb-2">
+          <p className="text-emerald-600 text-4xl sm:text-xl mb-2">
             &lt;h1&gt;{" "}
             <span className="text-white text-4xl font-bold">{nameLine}</span>{" "}
             &lt;/h1&gt;

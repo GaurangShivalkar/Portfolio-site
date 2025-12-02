@@ -44,7 +44,7 @@ const projectData = [
       "Engaged in agile development, used Postman for testing, Swagger for documentation, GitHub for deployment.",
     ],
     date: "Jul 2024",
-    github: "https://github.com/GaurangShivalkar/eKYCBackend",
+    github: "",
     live: "",
     source: "Logixal Cloud Solution LLP",
   },

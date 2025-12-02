@@ -20,8 +20,8 @@ export default function VantaBirds() {
       scaleMobile: 1.0,
       backgroundColor: 0x000000,   // pure black background
   backgroundAlpha: 1,
-  color1: 0x22c4b3,            // cyan-ish soft color #22c4b3
-  color2: 0x0f807d,            // darker cyan #0f807d for bird shading, // keep consistent dark night sky
+color1: 0x10B981,
+color2: 0x047857,           // darker cyan #0f807d for bird shading, // keep consistent dark night sky
     });
 
     return () => effect.destroy();
