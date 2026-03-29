@@ -33,7 +33,20 @@ export const educationItems = [
 ];
 
 export const certificationItems = [
-
+  {
+    name: "Claude Code in Action",
+    issuer: "Anthropic Education",
+    issued: "March 2026",
+    credential_id: "fdsro5h9zep6",
+    skills: ["Claude Code, Claude AI"],
+  },
+  {
+    name: "Oracle Cloud Infrastructure 2025 Certified AI Foundation Associate",
+    issuer: "Oracle",
+    issued: "August 2025",
+    credential_id: "102357663OCI25AICFA",
+    skills: ["AI, Oracle Cloud"],
+  },
   {
     name: "Data Analyst Certification",
     issuer: "OneRoadmap",
@@ -89,13 +102,6 @@ export const certificationItems = [
     issued: "December 2023",
     credential_id: null,
     skills: ["Cloud Basics", "AWS"],
-  },
-  {
-    name: "Java (Basics)",
-    issuer: "HackerRank",
-    issued: "September 2023",
-    credential_id: null,
-    skills: ["Java"],
   },
   {
     name: "MongoDB Basics - ICT Academy Learnathon",

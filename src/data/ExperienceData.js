@@ -1,4 +1,16 @@
 const experienceData = [
+    {
+    company: "Bahar Infocons Pvt. Ltd.",
+    role: "Software Developer",
+    location: "Mumbai, Maharashtra",
+    duration: "January 2026 – Present",
+    highlights: [
+      "Working with MS SQL to write queries, perform data validation, and support database-driven modules.",
+      "Assisting in bug fixes, data corrections, and enhancements for existing production systems.",
+      "Analyzed and resolved production issues by debugging SQL queries and improving data consistency across modules.",
+      "Maintaining and understanding legacy applications built using Visual FoxPro.",
+    ],
+  },
   {
     company: "MResult",
     role: "Trainee Software Developer Intern",
